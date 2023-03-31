@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Employee} from "./employee";
 import {environment} from "../environments/environment"
+import {User} from "./User";
+
+
 
 @Injectable({
   providedIn: 'root'})

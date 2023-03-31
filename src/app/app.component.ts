@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Employee} from "./employee";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {EmployeeService} from "./employee.service";
+import {UserService} from "./user.service";
 import {NgForm} from "@angular/forms";
+import {User} from "./User";
 
 @Component({
   selector: 'app-root',
@@ -11,20 +13,33 @@ import {NgForm} from "@angular/forms";
 })
 export class AppComponent implements OnInit{
   public employees: Employee[] | undefined;
+  public users: User[] | undefined;
   public editEmployee: Employee | null | undefined;
   public deleteEmployee: Employee | null | undefined  ;
 
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, private userService: UserService) {}
 
   ngOnInit() {
     this.getEmployees();
+    this.getUsers();
   }
 
   public getEmployees(): void{
     this.employeeService.getEmployees().subscribe(
       (response: Employee[]) => {
         this.employees = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+  public getUsers(): void{
+    this.userService.getUsers().subscribe(
+      (response: User[]) => {
+        this.users = response;
+        console.log(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message)
